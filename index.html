@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0a0a;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+        }
+
+        /* Dynamic mesh gradient background */
+        .mesh-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+                conic-gradient(from 0deg at 50% 50%, #ff006e, #8338ec, #3a86ff, #06ffa5, #ff006e);
+            background-size: 200% 200%;
+            animation: meshFlow 20s ease-in-out infinite;
+            filter: blur(100px);
+            opacity: 0.4;
+        }
+
+        @keyframes meshFlow {
+            0%, 100% { background-position: 0% 50%; transform: rotate(0deg); }
+            50% { background-position: 100% 50%; transform: rotate(180deg); }
+        }
+
+        /* Geometric shapes */
+        .geometric-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: geometricFloat 12s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, rgba(255, 0, 110, 0.2), rgba(131, 56, 236, 0.2));
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 20%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, rgba(58, 134, 255, 0.3), rgba(6, 255, 165, 0.2));
+            animation-delay: 2s;
+            border-radius: 30%;
+        }
+
+        .shape-3 {
+            bottom: 20%;
+            left: 20%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, rgba(131, 56, 236, 0.2), rgba(6, 255, 165, 0.2));
+            animation-delay: 4s;
+            border-radius: 0;
+            transform: rotate(45deg);
+        }
+
+        @keyframes geometricFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
+        }
+
+        /* Noise texture overlay */
+        .noise-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
+            animation: noiseMove 10s linear infinite;
+            opacity: 0.02;
+        }
+
+        @keyframes noiseMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        /* Main container */
+        .hero-container {
+            position: relative;
+            z-index: 10;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 2rem;
+            backdrop-filter: blur(40px) saturate(180%);
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.08) 0%,
+                    rgba(255, 255, 255, 0.02) 50%,
+                    rgba(255, 255, 255, 0.08) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow:
+                0 32px 64px -12px rgba(0, 0, 0, 0.4),
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            max-width: 768px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated border */
+        .hero-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(45deg,
+                transparent,
+                rgba(255, 0, 110, 0.5),
+                rgba(131, 56, 236, 0.5),
+                rgba(58, 134, 255, 0.5),
+                rgba(6, 255, 165, 0.5),
+                transparent);
+            background-size: 300% 300%;
+            animation: borderFlow 6s ease-in-out infinite;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            opacity: 0.6;
+        }
+
+        @keyframes borderFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-container:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 50px 100px -12px rgba(139, 92, 246, 0.3),
+                0 30px 40px -5px rgba(255, 0, 110, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Typography */
+        .main-heading {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            position: relative;
+            background:
+                linear-gradient(135deg,
+                    #ffffff 0%,
+                    #f8fafc 20%,
+                    #e2e8f0 40%,
+                    #ffffff 60%,
+                    #f1f5f9 80%,
+                    #ffffff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShine 3s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(40px) scale(0.8);
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .main-heading.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        @keyframes textShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Glitch effect overlay */
+        .main-heading::before,
+        .main-heading::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff006e, #8338ec, #3a86ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: glitchEffect 4s ease-in-out infinite;
+        }
+
+        .main-heading::before {
+            animation-delay: 0.1s;
+            left: 2px;
+        }
+
+        .main-heading::after {
+            animation-delay: 0.2s;
+            left: -2px;
+        }
+
+        @keyframes glitchEffect {
+            0%, 90%, 100% { opacity: 0; }
+            95% { opacity: 0.2; }
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .subtitle.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive elements */
+        .interaction-hint {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'JetBrains Mono', monospace;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* Cursor trail effect */
+        .cursor-trail {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 110, 0.4), transparent);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.1s ease-out;
+            z-index: 1000;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-container {
+                min-height: 150px;
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .geometric-shape {
+                opacity: 0.5;
+                transform: scale(0.7);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-container {
+                min-height: 120px;
+                padding: 1.5rem 1rem;
+            }
+
+            .main-heading {
+                margin-bottom: 0.5rem;
+            }
+
+            .subtitle {
+                margin-bottom: 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background layers -->
+    <div class="mesh-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Geometric shapes -->
+    <div class="geometric-shape shape-1"></div>
+    <div class="geometric-shape shape-2"></div>
+    <div class="geometric-shape shape-3"></div>
+
+    <!-- Cursor trail container -->
+    <div id="cursor-trails"></div>
+
+    <!-- Main hero section -->
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="hero-container">
+            <h1 id="mainHeading" class="main-heading" data-text="">
+                Loading...
+            </h1>
+            <p id="subtitle" class="subtitle">
+                Crafting digital experiences
+            </p>
+            <div class="interaction-hint">
+                // Move your mouse to explore
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main content data
+        const phrases = [
+            "Personal Development",
+            "Creative Portfolio",
+            "Digital Innovation"
+        ];
+
+        const subtitles = [
+            "Growing beyond limits",
+            "Crafting digital experiences",
+            "Building the future"
+        ];
+
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        // DOM elements
+        const heading = document.getElementById('mainHeading');
+        const subtitle = document.getElementById('subtitle');
+
+        // Initialize animation
+        function initializeAnimation() {
+            setTimeout(() => {
+                updateContent();
+                heading.classList.add('animate');
+                subtitle.classList.add('animate');
+            }, 500);
+        }
+
+        // Update content with smooth transition
+        function updateContent() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            // Fade out
+            heading.classList.remove('animate');
+            subtitle.classList.remove('animate');
+
+            setTimeout(() => {
+                // Update content
+                heading.textContent = phrases[currentIndex];
+                heading.setAttribute('data-text', phrases[currentIndex]);
+                subtitle.textContent = subtitles[currentIndex];
+
+                // Fade in
+                setTimeout(() => {
+                    heading.classList.add('animate');
+                    subtitle.classList.add('animate');
+                    isAnimating = false;
+                }, 100);
+
+                currentIndex = (currentIndex + 1) % phrases.length;
+            }, 600);
+        }
+
+        // Enhanced mouse interaction
+        let mouseX = 0, mouseY = 0;
+        let trails = [];
+
+        function createCursorTrail() {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.getElementById('cursor-trails').appendChild(trail);
+            trails.push(trail);
+
+            if (trails.length > 10) {
+                const oldTrail = trails.shift();
+                oldTrail.remove();
+            }
+
+            return trail;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Create trail effect
+            const trail = createCursorTrail();
+            trail.style.left = mouseX - 10 + 'px';
+            trail.style.top = mouseY - 10 + 'px';
+            trail.style.opacity = '1';
+
+            setTimeout(() => {
+                trail.style.opacity = '0';
+                trail.style.transform = 'scale(0)';
+            }, 100);
+
+            // Parallax effect on geometric shapes
+            const shapes = document.querySelectorAll('.geometric-shape');
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX / window.innerWidth - 0.5) * speed * 50;
+                const y = (mouseY / window.innerHeight - 0.5) * speed * 50;
+                shape.style.transform += ` translate(${x}px, ${y}px)`;
+            });
+
+            // 3D tilt effect on container
+            const container = document.querySelector('.hero-container');
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const deltaX = (mouseX - centerX) / rect.width;
+            const deltaY = (mouseY - centerY) / rect.height;
+
+            container.style.transform = `translateY(-8px) scale(1.02) rotateX(${deltaY * 5}deg) rotateY(${deltaX * 5}deg)`;
+        });
+
+        // Reset container transform when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const container = document.querySelector('.hero-container');
+            container.style.transform = 'translateY(0) scale(1) rotateX(0) rotateY(0)';
+        });
+
+        // Touch support for mobile
+        let touchStartTime = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartTime = Date.now();
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchDuration = Date.now() - touchStartTime;
+            if (touchDuration < 500) { // Quick tap
+                updateContent();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                updateContent();
+            }
+        });
+
+        // Performance optimization
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeAnimation();
+
+            // Auto-advance content
+            setInterval(() => {
+                if (!isAnimating) {
+                    updateContent();
+                }
+            }, 4000);
+        });
+
+        // Add random glitch effect occasionally
+        setInterval(() => {
+            if (Math.random() < 0.15) {
+                heading.style.animation = 'none';
+                heading.offsetHeight; // Trigger reflow
+                heading.style.animation = null;
+
+                setTimeout(() => {
+                    heading.style.textShadow = '2px 0 #ff006e, -2px 0 #3a86ff';
+                    setTimeout(() => {
+                        heading.style.textShadow = '';
+                    }, 150);
+                }, 50);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
