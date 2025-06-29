@@ -8,18 +8,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
 
-        * {
+        /* Ensure HTML and Body fill the iframe */
+        html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            height: 100%; /* Make sure HTML and body take 100% of the iframe's height */
+            width: 100%; /* Make sure HTML and body take 100% of the iframe's width */
         }
 
         body {
             font-family: 'Space Grotesk', sans-serif;
             background: #0a0a0a;
-            overflow: hidden;
+            overflow: hidden; /* Prevent scrollbars within the iframe */
             position: relative;
-            height: 100vh;
+            /* REMOVED: height: 100vh; - as it can be problematic with iframe resizing */
         }
 
         /* Dynamic mesh gradient background */
@@ -112,7 +115,7 @@
         .hero-container {
             position: relative;
             z-index: 10;
-            min-height: 200px;
+            min-height: 200px; /* Keep min-height for content visibility */
             display: flex;
             align-items: center;
             justify-content: center;
